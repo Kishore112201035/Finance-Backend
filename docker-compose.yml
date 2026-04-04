@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    container_name: finance_app
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - MONGODB_URI=mongodb://mongo:27017/financedb
+      - JWT_SECRET=supersecretjwtkey_change_in_production
+      - JWT_EXPIRES_IN=7d
+    depends_on:
+      mongo:
+        condition: service_healthy
+    networks:
+      - finance_net
+
+  mongo:
+    image: mongo:7
+    container_name: finance_mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - finance_net
+
+volumes:
+  mongo_data:
+
+networks:
+  finance_net:
+    driver: bridge
