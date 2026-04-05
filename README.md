@@ -3,6 +3,14 @@
 A production-style REST API backend for a finance dashboard system, built with **Node.js**, **Express**, **MongoDB**, and **JWT authentication**. Fully containerised with **Docker + Docker Compose**.
 
 ---
+# Finance Backend API
+
+## 📄 API Documentation
+👉 https://documenter.getpostman.com/view/53770849/2sBXiqEUUc
+## 🚀 Live Demo
+Not available. Use API docs for testing.
+
+---
 
 ## Tech Stack
 
